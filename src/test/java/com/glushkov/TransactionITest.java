@@ -1,6 +1,9 @@
 package com.glushkov;
 
 
+import com.glushkov.convertor.TransactionConverter;
+import com.glushkov.entity.Status;
+import com.glushkov.entity.Transaction;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +21,7 @@ public class TransactionITest {
 
     @Before
     public void setUp() throws Exception {
-        transaction = new Transaction(404, 505, Status.TRUE, 10000,
+        transaction = new Transaction(404, 505, Status.READY, 10000,
                 LocalDateTime.of(2020, 04, 10, 15, 34, 22));
 
         transactionConverter = new TransactionConverter(transaction);
@@ -33,7 +36,7 @@ public class TransactionITest {
     }
 
     @Test
-    public void JSONtoTransaction() throws IOException {
+    public void JSONtoTransaction() throws IOException {//НЕТУ ТОЛКОМ ТЕСТА
         Transaction fromJsonTransaction = Transaction.JSONtoTransaction("TestTransactionFile.json");
     }
 }

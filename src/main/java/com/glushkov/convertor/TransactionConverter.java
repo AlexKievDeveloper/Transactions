@@ -1,9 +1,10 @@
-package com.glushkov;
+package com.glushkov.convertor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
+import com.glushkov.entity.Transaction;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -12,7 +13,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class TransactionConverter {
-    private final Transaction transaction;
+    private Transaction transaction;
 
     public TransactionConverter(Transaction transaction) {
         this.transaction = transaction;

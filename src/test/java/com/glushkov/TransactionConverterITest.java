@@ -1,5 +1,8 @@
 package com.glushkov;
 
+import com.glushkov.convertor.TransactionConverter;
+import com.glushkov.entity.Status;
+import com.glushkov.entity.Transaction;
 import jakarta.xml.bind.JAXBException;
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +23,7 @@ public class TransactionConverterITest {
 
     @Before
     public void setUp() throws Exception {
-        transaction = new Transaction(404, 505, Status.TRUE, 10000,
+        transaction = new Transaction(404, 505, Status.READY, 10000,
                 LocalDateTime.of(2020, 04, 10, 15, 34, 22));
         transactionConverter = new TransactionConverter(transaction);
 
@@ -29,12 +32,7 @@ public class TransactionConverterITest {
         xmlFile = new File("TestTransactionFile.xml");
     }
 
-    @After
-    public void tearDown() throws Exception {
-        jsonFile.delete();
-        csvFile.delete();
-        xmlFile.delete();
-    }
+
 
     @Test
     public void toJSON() throws IOException {
@@ -55,5 +53,12 @@ public class TransactionConverterITest {
         transactionConverter.toXML();
 
         assertTrue(xmlFile.exists());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        jsonFile.delete();
+        csvFile.delete();
+        xmlFile.delete();
     }
 }

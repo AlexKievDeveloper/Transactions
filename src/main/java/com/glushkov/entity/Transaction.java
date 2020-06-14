@@ -1,4 +1,4 @@
-package com.glushkov;
+package com.glushkov.entity;
 
 
 import java.io.*;

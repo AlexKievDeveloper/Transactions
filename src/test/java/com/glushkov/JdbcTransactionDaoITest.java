@@ -1,19 +1,20 @@
 package com.glushkov;
 
-import org.junit.After;
+import com.glushkov.dao.JdbcTransactionDao;
+import com.glushkov.entity.Status;
+import com.glushkov.entity.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.sql.*;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
-public class MySQLDBWorkerITest {
+class JdbcTransactionDaoITest {
 
     Transaction transaction;
-    MySQLDBWorker mySQLDBWorker;
+    JdbcTransactionDao mySQLDBWorker;
     final String HOST = "jdbc:mysql://localhost:3306/transactions?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true" +
             "&useLegacyDatetimeCode=false&serverTimezone=UTC";
     final String USERNAME = "root";
@@ -23,27 +24,23 @@ public class MySQLDBWorkerITest {
 
     @Before
     public void setUp() throws Exception {
-        transaction = new Transaction(101, 1001, Status.TRUE, 11111,
+        transaction = new Transaction(101, 1001, Status.READY, 11111,
                 LocalDateTime.of(2001, 11, 11, 11, 1, 1));
 
-        mySQLDBWorker = new MySQLDBWorker();
-        mySQLDBWorker.transactionToSQLtable(transaction);
-    }
-
-    @After
-    public void tearDown() throws Exception {
+        mySQLDBWorker = new JdbcTransactionDao();
+        mySQLDBWorker.save(transaction);
     }
 
     @Test
-    public void transactionToSQLtable() throws SQLException {
+    public void saveTest() throws SQLException {
 
         try (Connection connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD)){
             Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM transactions.mytable");
+            ResultSet resultSet = statement.executeQuery("SELECT `Into`, 'To', Status, Amount, Date FROM transactions.mytable");
             resultSet.last();
             int countRawsBefore = resultSet.getRow();
-            mySQLDBWorker.transactionToSQLtable(transaction);
-            resultSet = statement.executeQuery("SELECT * FROM transactions.mytable");
+            mySQLDBWorker.save(transaction);
+            resultSet = statement.executeQuery("SELECT `Into`, 'To', Status, Amount, Date FROM transactions.mytable");
             resultSet.last();
             int countRawsAfter = resultSet.getRow();
             System.out.println(countRawsAfter);
