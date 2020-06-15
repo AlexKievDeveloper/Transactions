@@ -19,12 +19,18 @@ public class TransactionConverter {
         this.transaction = transaction;
     }
 
-    public void toJSON() throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new File("TestTransactionFile.json"), transaction);
+    public void toJSON() {
+        try{
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.writeValue(new File("TestTransactionFile.json"), transaction);
+        } catch (IOException ioException){
+            System.out.println("Error writing transaction to file: TestTransactionFile.json." +
+                    " Please check transaction in TransactionConverter and try again");
+            ioException.printStackTrace();
+        }
     }
 
-    public void toCSV() throws IOException {
+    public void toCSV() {
 
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema csvSchema = csvMapper.schemaFor(Transaction.class);
@@ -32,17 +38,32 @@ public class TransactionConverter {
 
         ObjectWriter myObjectWriter = csvMapper.writer(csvSchema);
         File tempFile = new File("TestTransactionFile.csv");
-        FileOutputStream tempFileOutputStream = new FileOutputStream(tempFile);
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(tempFileOutputStream, 1024);
-        OutputStreamWriter writerOutputStream = new OutputStreamWriter(bufferedOutputStream, StandardCharsets.UTF_8);
-        myObjectWriter.writeValue(writerOutputStream, transaction);
+        try {
+            FileOutputStream tempFileOutputStream = new FileOutputStream(tempFile);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(tempFileOutputStream, 1024);
+            OutputStreamWriter writerOutputStream = new OutputStreamWriter(bufferedOutputStream, StandardCharsets.UTF_8);
+            myObjectWriter.writeValue(writerOutputStream, transaction);
+            writerOutputStream.close();
+            bufferedOutputStream.close();
+            tempFileOutputStream.close();
+        }
+        catch (IOException ioException){
+            System.out.println("Error writing transaction to file: TestTransactionFile.csv." +
+                    " Please check transaction in TransactionConverter and try again");
+            ioException.printStackTrace();
+        }
     }
 
-    public void toXML() throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(Transaction.class);
-        Marshaller marshaller = context.createMarshaller();
+    public void toXML() {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Transaction.class);
+            Marshaller marshaller = context.createMarshaller();
 
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(transaction, new File("TestTransactionFile.xml"));
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.marshal(transaction, new File("TestTransactionFile.xml"));
+        } catch (JAXBException jaxbException){
+            System.out.println("Error writing transaction to file: TestTransactionFile.xml." +
+                    " Please check transaction in TransactionConverter and try again");
+        }
     }
 }
