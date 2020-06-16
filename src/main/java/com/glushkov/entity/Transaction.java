@@ -52,13 +52,13 @@ public class Transaction {
         this.date = Timestamp.valueOf(localDate);
     }
 
-    public static Transaction JSONtoTransaction(String path) {
+    public static Transaction JSONtoTransaction(String pathToJSONFile) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(new File(path), Transaction.class);
+            return objectMapper.readValue(new File(pathToJSONFile), Transaction.class);
         } catch (Exception exception) {
             exception.printStackTrace();
-            throw new RuntimeException("Error reading file with path " + path + ". " +
+            throw new RuntimeException("Error reading file with path " + pathToJSONFile + ". " +
                     "Please check path to the file and try again.", exception);
         }
     }

@@ -15,6 +15,9 @@ import java.nio.charset.StandardCharsets;
 public class TransactionConverter {
     private Transaction transaction;
 
+    public TransactionConverter(){
+    }
+
     public TransactionConverter(Transaction transaction) {
         this.transaction = transaction;
     }
