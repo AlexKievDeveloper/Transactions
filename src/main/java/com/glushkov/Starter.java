@@ -3,36 +3,38 @@ package com.glushkov;
 import com.glushkov.convertor.TransactionConverter;
 import com.glushkov.dao.DefaultDataSource;
 import com.glushkov.dao.JdbcTransactionDao;
+import com.glushkov.fileManager.DefaultFileManager;
 import com.glushkov.entity.Transaction;
 
-import java.text.ParseException;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 public class Starter {
 
+    public static void main(String[] args) {
+        //arguments
+        String pathToJson = args[0];
+        String pathToXML = args[1];
+        String pathToCSV = args[2];
 
-public static void main(String[] args) {
         //config
-        Transaction transaction;
-        TransactionConverter transactionConverter;
+        DefaultFileManager defaultFileManager = new DefaultFileManager();
+        TransactionConverter transactionConverter = new TransactionConverter();
 
-        /*DefaultDataSource not explicitly used. Inside the class, using the getconnection() method, a connection is
-        established to the database which is used in the save() method of the jdbcTransactionDao class*/
         DefaultDataSource defaultDataSource = new DefaultDataSource();
+        JdbcTransactionDao jdbcTransactionDao = new JdbcTransactionDao(defaultDataSource);
 
-        JdbcTransactionDao jdbcTransactionDao = new JdbcTransactionDao();
 
         //flow
-        transaction = Transaction.JSONtoTransaction("TransactionFile.json");//get Transaction from json
-        jdbcTransactionDao.save(transaction); //saving transaction do DB
+        String json = defaultFileManager.readFile(pathToJson);
+        List<Transaction> transactionList = transactionConverter.parseJson(json);
 
-        transactionConverter = new TransactionConverter(transaction); //create transaction Converter(initializing with transaction)
-        transactionConverter.toXML();//convert transaction to XMLFile and saving in default program directory Transaction
-        transactionConverter.toCSV();//convert transaction to CSVFile and saving in default program directory Transaction
+        jdbcTransactionDao.save(transactionList);
+        List<Transaction> transactionsWithID = jdbcTransactionDao.getAll();
+
+        String xml = transactionConverter.toXML(transactionsWithID);
+        defaultFileManager.saveTo(pathToXML, xml);
+
+        String csv = transactionConverter.toCSV(transactionsWithID);
+        defaultFileManager.saveTo(pathToCSV, csv);
     }
 }
-
-
-
-

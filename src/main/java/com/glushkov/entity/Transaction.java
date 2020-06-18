@@ -1,66 +1,72 @@
 package com.glushkov.entity;
 
 
-import java.io.*;
-import java.sql.*;
-import java.time.*;
-import java.util.Date;
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
 
+import java.util.Objects;
 
-@JsonPropertyOrder({"invoiceInto", "invoiceTo", "status", "amount", "date"})
+
+@JsonPropertyOrder({"id", "invoiceInto", "invoiceTo", "status", "amount"/*, "date"*/})
 @XmlType(name = "Transaction")
 @XmlRootElement
 public class Transaction {
 
     @XmlElement
-    @JsonProperty("Invoice into")
+    @JsonProperty("id")
+    private int id;
+
+    @XmlElement
+    @JsonProperty("invoiceInto")
     private int invoiceInto;
 
     @XmlElement
-    @JsonProperty("Invoice to")
+    @JsonProperty("invoiceTo")
     private int invoiceTo;
 
     @XmlElement
-    @JsonProperty("Status of transaction")
+    @JsonProperty("status")
     private Status status;
 
     @XmlElement
-    @JsonProperty("Amount")
+    @JsonProperty("amount")
     private double amount;
 
-    @XmlElement
-    @JsonProperty("Created date")
-    private Date date;
+/*    @XmlElement
+    @JsonProperty("date")
+    private Date date;*/
 
     public Transaction() {
     }
 
-    public Transaction(int invoiceInto, int invoiceTo, Status status, double amount, LocalDateTime localDate) {
+    public Transaction(int invoiceInto, int invoiceTo, Status status, double amount/*, LocalDateTime localDate*/) {
         this.invoiceInto = invoiceInto;
         this.invoiceTo = invoiceTo;
         this.status = status;
         this.amount = amount;
-        this.date = Timestamp.valueOf(localDate);
+        /*this.date = Timestamp.valueOf(localDate);*/
     }
 
-    public static Transaction JSONtoTransaction(String pathToJSONFile) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(new File(pathToJSONFile), Transaction.class);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            throw new RuntimeException("Error reading file with path " + pathToJSONFile + ". " +
-                    "Please check path to the file and try again.", exception);
-        }
+    public Transaction(int id, int invoiceInto, int invoiceTo, Status status, double amount/*, LocalDateTime localDate*/) {
+        this.id = id;
+        this.invoiceInto = invoiceInto;
+        this.invoiceTo = invoiceTo;
+        this.status = status;
+        this.amount = amount;
+        /*this.date = Timestamp.valueOf(localDate);*/
+    }
+
+    @XmlTransient
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @XmlTransient
@@ -99,19 +105,19 @@ public class Transaction {
         this.amount = amount;
     }
 
-    @XmlTransient
+/*    @XmlTransient
     public Date getDate() {
         return this.date;
     }
 
     public void setDate(Date date) {
         this.date = date;
-    }
+    }*/
 
     @Override
     public String toString() {
-        return "Transaction[Invoice Into: " + invoiceInto + ", Invoice To: " + invoiceTo + "," +
-                " Status of transaction: " + status + ", Amount: " + amount + ", Created date:  " + date + "]";
+        return "Transaction[Id:" + id + ", Invoice Into: " + invoiceInto + ", Invoice To: " + invoiceTo + "," +
+                " Status: " + status + ", Amount: " + amount + "]"; /*+ ", Created date:  " + date + "]";*/
     }
 
     @Override
@@ -122,13 +128,13 @@ public class Transaction {
         return invoiceInto == that.invoiceInto &&
                 invoiceTo == that.invoiceTo &&
                 Double.compare(that.amount, amount) == 0 &&
-                status == that.status &&
-                date.equals(that.date);
+                status == that.status; /*&&
+                date.equals(that.date);*/
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoiceInto, invoiceTo, status, amount, date);
+        return Objects.hash(invoiceInto, invoiceTo, status, amount/*, date*/);
     }
 }
 

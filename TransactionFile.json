@@ -1,0 +1,11 @@
+[{
+"invoiceInto": 1,
+"invoiceTo": 2,
+"status": "READY",
+"amount": 1000.0
+},{
+"invoiceInto": 2,
+"invoiceTo": 3,
+"status": "READY",
+"amount": 200.0
+}]

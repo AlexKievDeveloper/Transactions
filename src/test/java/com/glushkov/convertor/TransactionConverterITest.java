@@ -1,114 +1,84 @@
+
 package com.glushkov.convertor;
 
-import com.glushkov.convertor.TransactionConverter;
-import com.glushkov.entity.Status;
+import com.glushkov.fileManager.DefaultFileManager;
 import com.glushkov.entity.Transaction;
-import jakarta.xml.bind.JAXBException;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TransactionConverterITest {
-    Transaction transaction;
+    String jsonToParse = "[{\n" +
+            "        \"invoiceInto\": 1,\n" +
+            "        \"invoiceTo\": 2,\n" +
+            "        \"status\": \"READY\",\n" +
+            "        \"amount\": 1000.0\n" +
+            "        },{\n" +
+            "        \"invoiceInto\": 2,\n" +
+            "        \"invoiceTo\": 3,\n" +
+            "        \"status\": \"READY\",\n" +
+            "        \"amount\": 200.0\n" +
+            "        }]";
+
+    String xmlExpected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+            "<transaction>\n" +
+            "    <id>0</id>\n" +
+            "    <invoiceInto>1</invoiceInto>\n" +
+            "    <invoiceTo>2</invoiceTo>\n" +
+            "    <status>READY</status>\n" +
+            "    <amount>1000.0</amount>\n" +
+            "</transaction>\n" +
+            "\n" +
+            "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+            "<transaction>\n" +
+            "    <id>0</id>\n" +
+            "    <invoiceInto>2</invoiceInto>\n" +
+            "    <invoiceTo>3</invoiceTo>\n" +
+            "    <status>READY</status>\n" +
+            "    <amount>200.0</amount>\n" +
+            "</transaction>\n" +
+            "\n";
+
+    String csvExpected = "0\t1\t2\tREADY\t1000.0\n" +
+            "0\t2\t3\tREADY\t200.0\n";
+
     TransactionConverter transactionConverter;
-
-    File jsonFile;
-    File csvFile;
-    File xmlFile;
-
-    byte[] arrayJSON;
-    byte[] arrayCSV;
-    byte[] arrayXML;
+    DefaultFileManager defaultFileManager;
 
     @Before
-    public void setUp() {
-        transaction = new Transaction(7878, 7878, Status.READY, 787878,
-                LocalDateTime.of(2020, 4, 5, 4, 5, 4));
-        transactionConverter = new TransactionConverter(transaction);
-
-        String stringJSON = "{\"Invoice into\":7878,\"Invoice to\":7878,\"Status of transaction\":\"READY\",\"Amount\":787878.0,\"Created date\":1586048704000}";
-        arrayJSON = stringJSON.getBytes();
-
-        String stringCSV = "7878\t7878\tREADY\t787878.0\t1586048704000";
-        arrayCSV = stringCSV.getBytes();
-
-        String stringXML = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<transaction>\n" +
-                "    <invoiceInto>7878</invoiceInto>\n" +
-                "    <invoiceTo>7878</invoiceTo>\n" +
-                "    <status>READY</status>\n" +
-                "    <amount>787878.0</amount>\n" +
-                "    <date>2020-04-05T04:05:04+03:00</date>\n" +
-                "</transaction>";
-        arrayXML = stringXML.getBytes();
-
-        jsonFile = new File("TestTransactionFile.json");
-        csvFile = new File("TestTransactionFile.csv");
-        xmlFile = new File("TestTransactionFile.xml");
+    public void setUP() {
+        transactionConverter = new TransactionConverter();
+        defaultFileManager = new DefaultFileManager();
     }
 
 
     @Test
-    public void toJSONTest() throws IOException {
-        transactionConverter.toJSON();
+    public void parseJsonTest() {
+        List<Transaction> list = transactionConverter.parseJson(jsonToParse);
 
-        assertTrue(jsonFile.exists());
-
-        byte[] jsonFileBytes = new byte[(int) jsonFile.length()];
-        try (InputStream inputStream = new FileInputStream(jsonFile)) {
-            inputStream.read(jsonFileBytes);
-
-            for (int i = 0; i < arrayJSON.length; i++) {
-                assertEquals(arrayJSON[i], jsonFileBytes[i]);
-            }
-        }
-    }
-
-    @Test
-    public void toCSVTest() throws IOException {
-        transactionConverter.toCSV();
-
-        assertTrue(csvFile.exists());
-
-        byte[] csvFileBytes = new byte[(int) csvFile.length()];
-        try (InputStream inputStream = new FileInputStream(csvFile)) {
-            inputStream.read(csvFileBytes);
-
-            for (int i = 0; i < arrayCSV.length; i++) {
-                assertEquals(arrayCSV[i], csvFileBytes[i]);
-            }
-        }
+        assertEquals(2, list.size());
+        assertEquals(1, list.get(0).getInvoiceInto());
+        assertEquals(200.0, list.get(1).getAmount(), 1);
     }
 
     @Test
     public void toXMLTest() {
-        transactionConverter.toXML();
+        List<Transaction> list = transactionConverter.parseJson(jsonToParse);
 
-        assertTrue(xmlFile.exists());
+        String xml = transactionConverter.toXML(list);
 
-        byte[] xmlFileBytes = new byte[(int) xmlFile.length()];
-        try (InputStream inputStream = new FileInputStream(xmlFile)) {
-            inputStream.read(xmlFileBytes);
-
-            for (int i = 0; i < arrayXML.length; i++) {
-                assertEquals(arrayXML[i], xmlFileBytes[i]);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        assertEquals(xmlExpected, xml);
     }
 
-    @After
-    public void tearDown() {
-        jsonFile.delete();
-        csvFile.delete();
-        xmlFile.delete();
+    @Test
+    public void toCSVTest() {
+        List<Transaction> list = transactionConverter.parseJson(jsonToParse);
+
+        String csv = transactionConverter.toCSV(list);
+
+        assertEquals(csvExpected, csv);
     }
 }

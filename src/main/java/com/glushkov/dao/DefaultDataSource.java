@@ -2,35 +2,20 @@ package com.glushkov.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
 
 
-
-public class DefaultDataSource implements DataSource {
+public class DefaultDataSource {
 
     final Properties properties = new Properties();
 
-    public Connection getConnection() {
+    public DefaultDataSource() {
         ClassLoader classLoader = DefaultDataSource.class.getClassLoader();
-
-        try {
-            try (InputStream inputStream = classLoader.getResourceAsStream("application.properties")) {
-                this.load(inputStream);
-                return DriverManager.getConnection(properties.getProperty("jdbc.host"),
-                        properties.getProperty("jdbc.user"), properties.getProperty("jdbc.password"));
-            }
-        } catch (Exception e){
-            throw new RuntimeException("Error while establishing database connection.Please check properties " + "\n" +
-                    properties.getProperty("jdbc.host") + "\n " +
-                    properties.getProperty("jdbc.user") + "\n " +
-                    properties.getProperty("jdbc.password") + "\n and try again.");
-        }
+        InputStream inputStream = classLoader.getResourceAsStream("application.properties");
+        this.loadProperties(inputStream);
     }
 
-
-    void load(InputStream inputStream) {
+    void loadProperties(InputStream inputStream) {
         try {
             this.properties.load(inputStream);
         } catch (IOException exception) {
@@ -42,3 +27,5 @@ public class DefaultDataSource implements DataSource {
         }
     }
 }
+
+

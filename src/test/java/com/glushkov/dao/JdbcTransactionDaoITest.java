@@ -1,45 +1,83 @@
+
 package com.glushkov.dao;
 
 
+import com.glushkov.convertor.TransactionConverter;
 import com.glushkov.entity.Status;
 import com.glushkov.entity.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class JdbcTransactionDaoITest {
+    String jsonToParse = "[{\n" +
+            "        \"invoiceInto\": 101,\n" +
+            "        \"invoiceTo\": 2,\n" +
+            "        \"status\": \"READY\",\n" +
+            "        \"amount\": 1000.0\n" +
+            "        },{\n" +
+            "        \"invoiceInto\": 202,\n" +
+            "        \"invoiceTo\": 3,\n" +
+            "        \"status\": \"READY\",\n" +
+            "        \"amount\": 200.0\n" +
+            "        }]";
 
-    Transaction transaction;
+    String host;
+    String user;
+    String password;
+
+    TransactionConverter transactionConverter;
+    DefaultDataSource defaultDataSource;
     JdbcTransactionDao jdbcTransactionDao;
 
     @Before
     public void setUp() {
-        transaction = new Transaction(101, 1001, Status.READY, 11111,
-                LocalDateTime.of(2001, 11, 11, 11, 1, 1));
+        transactionConverter = new TransactionConverter();
+        defaultDataSource = new DefaultDataSource();
+        jdbcTransactionDao = new JdbcTransactionDao(defaultDataSource);
 
-        jdbcTransactionDao = new JdbcTransactionDao();
+        host = defaultDataSource.properties.getProperty("jdbc.host");
+        user = defaultDataSource.properties.getProperty("jdbc.user");
+        password = defaultDataSource.properties.getProperty("jdbc.password");
     }
 
     @Test
-    public void saveTest() throws SQLException {
+    public void saveTest() {
+        List<Transaction> list = transactionConverter.parseJson(jsonToParse);
 
-        DefaultDataSource defaultDataSource = new DefaultDataSource();
-        Statement statement = defaultDataSource.getConnection().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultSet = statement.executeQuery("SELECT `Into`, 'To', Status, Amount, Date FROM transactions.mytable");
-        resultSet.last();
-        int countRawsBefore = resultSet.getRow();
+        jdbcTransactionDao.save(list);
 
-        jdbcTransactionDao.save(transaction);
+        List<Transaction> dbListAfterSaving = jdbcTransactionDao.getAll();
+        for (Transaction transaction : list) {
+            assertTrue(dbListAfterSaving.contains(transaction));
+        }
+    }
 
-        resultSet = statement.executeQuery("SELECT `Into`, 'To', Status, Amount, Date FROM transactions.mytable");
-        resultSet.last();
-        int countRawsAfter = resultSet.getRow();
-        statement.close();
+    @Test
+    public void getAllTest() throws SQLException {
+        Connection connection = DriverManager.getConnection(host, user, password);
+        Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        ResultSet resultSet = statement.executeQuery("SELECT id, invoiceinto, invoiceto, status, amount\n" +
+                "\tFROM public.transactions_table;");
+
+        List<Transaction> dbAllList = jdbcTransactionDao.getAll();
+
+
+        for (int i = 0; i < resultSet.getRow(); i++) {
+            assertEquals(dbAllList.get(i).getInvoiceInto(), resultSet.getInt("invoiceinto"));
+            assertEquals(dbAllList.get(i).getInvoiceTo(), resultSet.getInt("invoiceto"));
+            assertEquals(dbAllList.get(i).getStatus(), Status.valueOf(resultSet.getString("status")));
+            assertEquals(dbAllList.get(i).getAmount(), resultSet.getDouble("amount"));
+        }
+
         resultSet.close();
-        assertEquals(countRawsBefore + 1, countRawsAfter);
+        statement.close();
+        connection.close();
     }
 }
+
