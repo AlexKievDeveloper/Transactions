@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class TransactionConverterITest {
-    String jsonToParse = "[{\n" +
+    private String jsonToParse = "[{\n" +
             "        \"invoiceInto\": 1,\n" +
             "        \"invoiceTo\": 2,\n" +
             "        \"status\": \"READY\",\n" +
@@ -23,7 +23,7 @@ public class TransactionConverterITest {
             "        \"amount\": 200.0\n" +
             "        }]";
 
-    String xmlExpected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+    private String xmlExpected = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
             "<transaction>\n" +
             "    <id>0</id>\n" +
             "    <invoiceInto>1</invoiceInto>\n" +
@@ -42,7 +42,7 @@ public class TransactionConverterITest {
             "</transaction>\n" +
             "\n";
 
-    String csvExpected = "0\t1\t2\tREADY\t1000.0\n" +
+    private String csvExpected = "0\t1\t2\tREADY\t1000.0\n" +
             "0\t2\t3\tREADY\t200.0\n";
 
     TransactionConverter transactionConverter;

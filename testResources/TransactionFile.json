@@ -2,10 +2,12 @@
 "invoiceInto": 1,
 "invoiceTo": 2,
 "status": "READY",
-"amount": 1000.0
+"amount": 1000.0,
+"date": "2010-01-01T12:00:00+01:00"
 },{
 "invoiceInto": 2,
 "invoiceTo": 3,
 "status": "READY",
-"amount": 200.0
+"amount": 200.0,
+"date": "2010-01-01T12:00:00+01:00"
 }]

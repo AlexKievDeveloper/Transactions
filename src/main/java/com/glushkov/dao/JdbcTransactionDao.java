@@ -4,25 +4,28 @@ package com.glushkov.dao;
 import com.glushkov.entity.Status;
 import com.glushkov.entity.Transaction;
 
+import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JdbcTransactionDao implements TransactionDao {
 
-    String host, user, password;
+    private static final String INSERT_NEW_ROW =
+    "INSERT INTO public.transactions_table1(invoiceinto, invoiceto, status, amount, date) VALUES (?, ?, ?, ?, ?);";
 
-    public JdbcTransactionDao(DefaultDataSource defaultDataSource) {
-        host = defaultDataSource.properties.getProperty("jdbc.host");
-        user = defaultDataSource.properties.getProperty("jdbc.user");
-        password = defaultDataSource.properties.getProperty("jdbc.password");
+    private static final String GET_ALL = "SELECT id, invoiceinto, invoiceto, status, amount, date FROM public.transactions_table1;";
+
+    private DataSource dataSource;
+
+    public JdbcTransactionDao(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     public void save(List<Transaction> transactionsList) {
-        final String INSERT_NEW_ROW = "INSERT INTO public.transactions_table (invoiceinto, invoiceto, status, amount)" +
-                "VALUES (?,?,?,?)"; /*,?*/   /*, Date*/
 
-        try (Connection connection = DriverManager.getConnection(host, user, password);
+        try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_NEW_ROW)) {
 
             for (Transaction transaction : transactionsList) {
@@ -30,45 +33,43 @@ public class JdbcTransactionDao implements TransactionDao {
                 preparedStatement.setInt(2, transaction.getInvoiceTo());
                 preparedStatement.setString(3, String.valueOf(transaction.getStatus()));
                 preparedStatement.setDouble(4, transaction.getAmount());
-                /*preparedStatement.setTimestamp(5, new Timestamp(transactionsList.get(0).getDate().getTime()));*/
-                preparedStatement.addBatch();
+                preparedStatement.setTimestamp(5, (transaction.getDate()));
+                preparedStatement.executeUpdate();
             }
-            preparedStatement.executeBatch();
         } catch (SQLException sqlException) {
-            System.out.println("Can`t add transaction to DB. " +
-                    "Please check the validity of transaction field values and application properties");
-            sqlException.printStackTrace();
+            throw new RuntimeException("Can`t add transaction to DB. Please check the validity of transaction field " +
+                    "values and application properties", sqlException);
         }
     }
 
-
     public List<Transaction> getAll() {
-        String getAllTransactions = "SELECT id, invoiceinto, invoiceto, status, amount\n" +
-                "\tFROM public.transactions_table;";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL)) {
+             ResultSet resultSet = preparedStatement.executeQuery();
+             return getResultSet(resultSet);
+        } catch (SQLException sqlException) {
+            throw new RuntimeException("Can`t show all transactions. ", sqlException);
+        }
+    }
 
-        List<Transaction> transactionList = new ArrayList<>();
-
-        try (Connection connection = DriverManager.getConnection(host, user, password);
-             PreparedStatement preparedStatement = connection.prepareStatement(getAllTransactions)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-
+    private List<Transaction> getResultSet(ResultSet resultSet){
+        try {
+            List<Transaction> transactionList = new ArrayList<>();
             while (resultSet.next()) {
-
                 int id = resultSet.getInt("id");
                 int invoiceInto = resultSet.getInt("invoiceinto");
                 int invoiceTo = resultSet.getInt("invoiceto");
                 Status status = Status.valueOf(resultSet.getString("status"));
-                int amount = resultSet.getInt("amount");
-                //Date date = resultSet.getDate("date");
-                Transaction transaction = new Transaction(id, invoiceInto, invoiceTo, status, amount);
+                double amount = resultSet.getDouble("amount");
+                Timestamp date = resultSet.getTimestamp("date");  /*Date.valueOf(resultSet.getString("date"));*/
+                Transaction transaction = new Transaction(id, invoiceInto, invoiceTo, status, amount,
+                        date);
                 transactionList.add(transaction);
             }
-        } catch (SQLException sqlException) {
-            System.out.println("Can`t add transaction to DB. " +
-                    "Please check the validity of transaction field values and application properties");
-            sqlException.printStackTrace();
+            resultSet.close();
+            return transactionList;
+        } catch (SQLException sqlException){
+            throw new RuntimeException("Can`t get transactions from result set.", sqlException);
         }
-        return transactionList;
     }
 }
