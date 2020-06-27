@@ -5,9 +5,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>2</id>
@@ -15,9 +13,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>3</id>
@@ -25,9 +21,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>4</id>
@@ -35,9 +29,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>5</id>
@@ -45,9 +37,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>6</id>
@@ -55,9 +45,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>7</id>
@@ -65,9 +53,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>8</id>
@@ -75,9 +61,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>9</id>
@@ -85,9 +69,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>10</id>
@@ -95,9 +77,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>11</id>
@@ -105,9 +85,7 @@
         <invoiceTo>11</invoiceTo>
         <status>READY</status>
         <amount>20000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T12:00</date>
     </transaction>
     <transaction>
         <id>12</id>
@@ -115,9 +93,7 @@
         <invoiceTo>1111</invoiceTo>
         <status>READY</status>
         <amount>30000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2015-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>13</id>
@@ -125,9 +101,7 @@
         <invoiceTo>11</invoiceTo>
         <status>READY</status>
         <amount>20000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>3910-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>14</id>
@@ -135,9 +109,7 @@
         <invoiceTo>1111</invoiceTo>
         <status>READY</status>
         <amount>30000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>3910-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>15</id>
@@ -145,9 +117,7 @@
         <invoiceTo>11</invoiceTo>
         <status>READY</status>
         <amount>20000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>16</id>
@@ -155,9 +125,7 @@
         <invoiceTo>1111</invoiceTo>
         <status>READY</status>
         <amount>30000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>17</id>
@@ -165,9 +133,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>18</id>
@@ -175,9 +141,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>19</id>
@@ -185,9 +149,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>20</id>
@@ -195,9 +157,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>21</id>
@@ -205,9 +165,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>22</id>
@@ -215,9 +173,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>23</id>
@@ -225,9 +181,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>24</id>
@@ -235,9 +189,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>25</id>
@@ -245,9 +197,7 @@
         <invoiceTo>11</invoiceTo>
         <status>READY</status>
         <amount>20000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>26</id>
@@ -255,9 +205,7 @@
         <invoiceTo>1111</invoiceTo>
         <status>READY</status>
         <amount>30000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>27</id>
@@ -265,9 +213,7 @@
         <invoiceTo>2</invoiceTo>
         <status>READY</status>
         <amount>1000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>28</id>
@@ -275,9 +221,7 @@
         <invoiceTo>3</invoiceTo>
         <status>READY</status>
         <amount>200.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>2010-01-01T13:00</date>
     </transaction>
     <transaction>
         <id>29</id>
@@ -285,9 +229,7 @@
         <invoiceTo>11</invoiceTo>
         <status>READY</status>
         <amount>20000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>3910-02-01T12:00</date>
     </transaction>
     <transaction>
         <id>30</id>
@@ -295,8 +237,230 @@
         <invoiceTo>1111</invoiceTo>
         <status>READY</status>
         <amount>30000.0</amount>
-        <date>
-            <nanos>0</nanos>
-        </date>
+        <date>3910-02-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>31</id>
+        <invoiceInto>10</invoiceInto>
+        <invoiceTo>11</invoiceTo>
+        <status>READY</status>
+        <amount>20000.0</amount>
+        <date>2005-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>32</id>
+        <invoiceInto>1011</invoiceInto>
+        <invoiceTo>1111</invoiceTo>
+        <status>READY</status>
+        <amount>30000.0</amount>
+        <date>2005-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>33</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>34</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>35</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>36</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>37</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>38</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>39</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>40</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>41</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>42</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>43</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>44</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>45</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>46</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>47</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>48</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>49</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>50</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>51</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>52</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>53</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>54</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>55</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>56</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>57</id>
+        <invoiceInto>1</invoiceInto>
+        <invoiceTo>2</invoiceTo>
+        <status>READY</status>
+        <amount>1000.0</amount>
+        <date>2010-01-01T12:00</date>
+    </transaction>
+    <transaction>
+        <id>58</id>
+        <invoiceInto>2</invoiceInto>
+        <invoiceTo>3</invoiceTo>
+        <status>READY</status>
+        <amount>200.0</amount>
+        <date>2010-01-01T12:00</date>
     </transaction>
 </transactions>

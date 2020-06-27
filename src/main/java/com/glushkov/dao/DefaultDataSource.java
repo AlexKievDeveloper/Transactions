@@ -30,12 +30,6 @@ public class DefaultDataSource implements DataSource {
         String user = properties.getProperty("jdbc.user");
         String password = properties.getProperty("jdbc.password");
         return DriverManager.getConnection(host, user, password);
-/*        try (Connection connection = DriverManager.getConnection(host, user, password)){
-            return connection;
-        }
-        catch (SQLException sqlException){
-            throw new RuntimeException("Can`t connection to DataBase. Please check properties.", sqlException);
-        }*/
     }
 
     @Override

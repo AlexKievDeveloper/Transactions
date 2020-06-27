@@ -7,19 +7,20 @@ CREATE DATABASE "Transactions"
     TABLESPACE = pg_default
     CONNECTION LIMIT = -1;
 
-CREATE TABLE public.transactions_table
+CREATE TABLE public.transactions_table1
 (
-    id integer NOT NULL DEFAULT nextval('transactions_table_id_seq'::regclass),
+    id integer NOT NULL DEFAULT nextval('transactions_table1_id_seq'::regclass),
     invoiceinto integer NOT NULL,
     invoiceto integer NOT NULL,
     status character varying(20) COLLATE pg_catalog."default" NOT NULL,
     amount double precision NOT NULL,
-    CONSTRAINT transactions_table_pkey PRIMARY KEY (id)
+    date timestamp(6) without time zone NOT NULL,
+    CONSTRAINT transactions_table1_pkey PRIMARY KEY (id)
 )
 
     TABLESPACE pg_default;
 
-ALTER TABLE public.transactions_table
+ALTER TABLE public.transactions_table1
     OWNER to postgres;
 
 

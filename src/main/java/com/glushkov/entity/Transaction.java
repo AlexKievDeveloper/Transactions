@@ -1,16 +1,15 @@
 package com.glushkov.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import jakarta.xml.bind.annotation.XmlElement;
+import com.glushkov.convertor.TransactionConverter;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @JsonPropertyOrder({"id", "invoiceInto", "invoiceTo", "status", "amount", "date"})
@@ -34,27 +33,27 @@ public class Transaction {
     private double amount;
 
     @JsonProperty("date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
-    private Timestamp date;
+    @XmlJavaTypeAdapter(value = TransactionConverter.LocalDateAdapter.class)
+    private LocalDateTime date;
 
     public Transaction() {
     }
 
-    public Transaction(int invoiceInto, int invoiceTo, Status status, double amount, Timestamp timestamp) {
+    public Transaction(int invoiceInto, int invoiceTo, Status status, double amount, LocalDateTime localDateTime) {
         this.invoiceInto = invoiceInto;
         this.invoiceTo = invoiceTo;
         this.status = status;
         this.amount = amount;
-        this.date = timestamp;
+        this.date = localDateTime;
     }
 
-    public Transaction(int id, int invoiceInto, int invoiceTo, Status status, double amount, Timestamp timestamp) {
+    public Transaction(int id, int invoiceInto, int invoiceTo, Status status, double amount, LocalDateTime localDateTime) {
         this.id = id;
         this.invoiceInto = invoiceInto;
         this.invoiceTo = invoiceTo;
         this.status = status;
         this.amount = amount;
-        this.date = timestamp;
+        this.date = localDateTime;
     }
 
     public int getId() {
@@ -97,11 +96,12 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Timestamp getDate() {
+    @XmlTransient
+    public LocalDateTime getDate() {
         return this.date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
