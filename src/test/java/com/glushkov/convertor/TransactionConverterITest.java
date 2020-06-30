@@ -1,11 +1,13 @@
 
 package com.glushkov.convertor;
 
+import com.glushkov.entity.Status;
 import com.glushkov.entity.Transaction;
 import com.glushkov.fileManager.DefaultFileManager;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -58,12 +60,33 @@ public class TransactionConverterITest {
 
 
     @Test
-    public void parseJsonTest() {
+    public void parseJsonWithArrayOfEntitiesTest() {
         List<Transaction> list = transactionConverter.parseJson(jsonToParse);
 
         assertEquals(2, list.size());
         assertEquals(1, list.get(0).getInvoiceInto());
-        assertEquals(200.0, list.get(1).getAmount(), 1);
+        assertEquals(2, list.get(0).getInvoiceTo());
+        assertEquals(Status.READY, list.get(0).getStatus());
+        assertEquals(1000.0d, list.get(0).getAmount(), 1);
+        assertEquals(LocalDateTime.of(2010, 1, 1, 12, 0, 0), list.get(0).getDate());
+        assertEquals(2, list.get(1).getInvoiceInto());
+        assertEquals(3, list.get(1).getInvoiceTo());
+        assertEquals(Status.READY, list.get(1).getStatus());
+        assertEquals(200.0d, list.get(1).getAmount(), 1);
+        assertEquals(LocalDateTime.of(2010, 1, 1, 12, 0, 0), list.get(0).getDate());
+    }
+
+    @Test
+    public void parseJsonWithOneEntityTest() {
+        String OneEntityTestFile = defaultFileManager.readFile("testResources/OneEntityTestFile.json");
+        List<Transaction> list = transactionConverter.parseJson(OneEntityTestFile);
+
+        assertEquals(1, list.size());
+        assertEquals(1, list.get(0).getInvoiceInto());
+        assertEquals(2, list.get(0).getInvoiceTo());
+        assertEquals(Status.READY, list.get(0).getStatus());
+        assertEquals(1000.0d, list.get(0).getAmount(), 1);
+        assertEquals(LocalDateTime.of(2010, 1, 1, 12, 0, 0), list.get(0).getDate());
     }
 
     @Test

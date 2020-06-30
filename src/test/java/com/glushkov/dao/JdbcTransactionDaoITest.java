@@ -41,6 +41,15 @@ public class JdbcTransactionDaoITest {
 
         List<Transaction> dbListAfterSaving = jdbcTransactionDao.getAll();
         assertEquals(sizeBefore + list.size(), dbListAfterSaving.size());
+
+        for (int i = dbListAfterSaving.size() - list.size(); i < dbListAfterSaving.size(); i++) {
+            assertNotNull(dbListAfterSaving.get(i).getId());
+            assertNotNull(dbListAfterSaving.get(i).getInvoiceInto());
+            assertNotNull(dbListAfterSaving.get(i).getInvoiceTo());
+            assertNotNull(dbListAfterSaving.get(i).getStatus());
+            assertNotNull(dbListAfterSaving.get(i).getAmount());
+            assertNotNull(dbListAfterSaving.get(i).getDate());
+        }
     }
 
     @Test
@@ -51,8 +60,8 @@ public class JdbcTransactionDaoITest {
             assertNotNull(transaction.getId());
             assertNotNull(transaction.getInvoiceInto());
             assertNotNull(transaction.getInvoiceTo());
-            assertNotNull(transaction.getAmount());
             assertNotNull(transaction.getStatus());
+            assertNotNull(transaction.getAmount());
             assertNotNull(transaction.getDate());
         }
     }

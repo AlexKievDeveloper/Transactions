@@ -13,6 +13,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 
 import java.io.IOException;
@@ -26,15 +27,26 @@ public class TransactionConverter implements Convert {
 
     public List<Transaction> parseJson(String json) {
         List<Transaction> jsonList = new ArrayList<>();
-        JSONArray jsonArray = new JSONArray(json);
-
-        for (int i = 0; i < jsonArray.length(); i++) {
+        if (StringUtils.countMatches(json, "invoiceInto") == 1){
             Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
-                    (json1, type, jsonDeserializationContext) -> ZonedDateTime.parse(json1.getAsJsonPrimitive().getAsString()).toLocalDateTime()).create();
-            Transaction transaction = gson.fromJson(jsonArray.get(i).toString(), Transaction.class);
+                    (json1, type, jsonDeserializationContext) -> ZonedDateTime.parse(json1.getAsJsonPrimitive().
+                            getAsString()).toLocalDateTime()).create();
+            Transaction transaction = gson.fromJson(json, Transaction.class);
             jsonList.add(transaction);
+            return jsonList;
         }
-        return jsonList;
+        else {
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
+                        (json1, type, jsonDeserializationContext) -> ZonedDateTime.parse(json1.getAsJsonPrimitive().
+                                getAsString()).toLocalDateTime()).create();
+                Transaction transaction = gson.fromJson(jsonArray.get(i).toString(), Transaction.class);
+                jsonList.add(transaction);
+            }
+            return jsonList;
+        }
     }
 
     public String toXML(List<Transaction> transactionListWithID) {
