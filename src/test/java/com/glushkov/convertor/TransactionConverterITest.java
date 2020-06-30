@@ -7,7 +7,7 @@ import com.glushkov.fileManager.DefaultFileManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -18,13 +18,13 @@ public class TransactionConverterITest {
             "\"invoiceTo\": 2,\n" +
             "\"status\": \"READY\",\n" +
             "\"amount\": 1000.0,\n" +
-            "\"date\": \"2010-01-01T12:00:00+01:00\"\n" +
+            "\"createDate\": \"2010-01-01\"\n" +
             "},{\n" +
             "\"invoiceInto\": 2,\n" +
             "\"invoiceTo\": 3,\n" +
             "\"status\": \"READY\",\n" +
             "\"amount\": 200.0,\n" +
-            "\"date\": \"2010-01-01T12:00:00+01:00\"\n" +
+            "\"createDate\": \"2010-01-01\"\n" +
             "}]";
 
     private String xmlExpected = "<transactions>\n" +
@@ -34,7 +34,7 @@ public class TransactionConverterITest {
             "        <invoiceTo>2</invoiceTo>\n" +
             "        <status>READY</status>\n" +
             "        <amount>1000.0</amount>\n" +
-            "        <date>2010-01-01T12:00</date>\n" +
+            "        <createDate>2010-01-01</createDate>\n" +
             "    </transaction>\n" +
             "    <transaction>\n" +
             "        <id>0</id>\n" +
@@ -42,12 +42,12 @@ public class TransactionConverterITest {
             "        <invoiceTo>3</invoiceTo>\n" +
             "        <status>READY</status>\n" +
             "        <amount>200.0</amount>\n" +
-            "        <date>2010-01-01T12:00</date>\n" +
+            "        <createDate>2010-01-01</createDate>\n" +
             "    </transaction>\n" +
             "</transactions>";
 
-    private String csvExpected = "0\t1\t2\tREADY\t1000.0\t2010-01-01T12:00:00\n" +
-            "0\t2\t3\tREADY\t200.0\t2010-01-01T12:00:00\n";
+    private String csvExpected = "0\t1\t2\tREADY\t1000.0\t2010-01-01\n" +
+            "0\t2\t3\tREADY\t200.0\t2010-01-01\n";
 
     TransactionConverter transactionConverter;
     DefaultFileManager defaultFileManager;
@@ -68,12 +68,12 @@ public class TransactionConverterITest {
         assertEquals(2, list.get(0).getInvoiceTo());
         assertEquals(Status.READY, list.get(0).getStatus());
         assertEquals(1000.0d, list.get(0).getAmount(), 1);
-        assertEquals(LocalDateTime.of(2010, 1, 1, 12, 0, 0), list.get(0).getDate());
+        assertEquals(LocalDate.of(2010, 1, 1), list.get(0).getDate());
         assertEquals(2, list.get(1).getInvoiceInto());
         assertEquals(3, list.get(1).getInvoiceTo());
         assertEquals(Status.READY, list.get(1).getStatus());
         assertEquals(200.0d, list.get(1).getAmount(), 1);
-        assertEquals(LocalDateTime.of(2010, 1, 1, 12, 0, 0), list.get(0).getDate());
+        assertEquals(LocalDate.of(2010, 1, 1), list.get(0).getDate());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class TransactionConverterITest {
         assertEquals(2, list.get(0).getInvoiceTo());
         assertEquals(Status.READY, list.get(0).getStatus());
         assertEquals(1000.0d, list.get(0).getAmount(), 1);
-        assertEquals(LocalDateTime.of(2010, 1, 1, 12, 0, 0), list.get(0).getDate());
+        assertEquals(LocalDate.of(2010, 1, 1), list.get(0).getDate());
     }
 
     @Test

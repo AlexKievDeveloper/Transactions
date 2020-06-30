@@ -15,13 +15,13 @@ public class DefaultFileManagerITest {
             "\"invoiceTo\": 2,\n" +
             "\"status\": \"READY\",\n" +
             "\"amount\": 1000.0,\n" +
-            "\"date\": \"2010-01-01T12:00:00+01:00\"\n" +
+            "\"createDate\": \"2010-01-01\"\n" +
             "},{\n" +
             "\"invoiceInto\": 2,\n" +
             "\"invoiceTo\": 3,\n" +
             "\"status\": \"READY\",\n" +
             "\"amount\": 200.0,\n" +
-            "\"date\": \"2010-01-01T12:00:00+01:00\"\n" +
+            "\"createDate\": \"2010-01-01\"\n" +
             "}]";
 
     DefaultFileManager defaultFileManager = new DefaultFileManager();
@@ -33,7 +33,6 @@ public class DefaultFileManagerITest {
     @Test
     public void readFileTest() {
         String jsonFromFile = defaultFileManager.readFile("testResources/TransactionFile.json");
-        defaultFileManager.saveTo("testResources/TransactionFile.json", jsonExpected);
 
         assertEquals(jsonExpected, jsonFromFile);
     }
